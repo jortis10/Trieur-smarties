@@ -1,3 +1,14 @@
+/**
+ * @file monServo.hpp
+ * @author Projet Smarties IUT-BM
+ * @brief Contient la class de l'objet servomoteur
+ * @version 0.1
+ * @date 2021-03-28
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef HEADER_MONSERVO_HPP
 #define HEADER_MONSERVO_HPP
 

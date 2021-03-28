@@ -1,3 +1,14 @@
+/**
+ * @file moteur.hpp
+ * @author Projet Smarties IUT-BM
+ * @brief Contient la classe de l'objet moteur pas à pas
+ * @version 0.1
+ * @date 2021-03-28
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef HEADER_MOTEUR_HPP
 #define HEADER_MOTEUR_HPP
 

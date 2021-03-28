@@ -11,10 +11,13 @@
 
 #include "mycolor.hpp"
 
-char* color[] = {"Blanc", "Orange", "Jaune", "Rouge", "Vert", "bleu","violet","rose","marron", "out of range"};
-int learned_colors[3][9] = {{28,34,31,32,29,26,25,27,29},  
-                            {33,32,35,30,35,33,31,30,33},
-                            {40,37,34,39,37,44,42,41,37}};
+char* color[] = {"Blanc", "Orange", "Jaune", "Rouge", "Vert", "bleu","violet","rose","marron", "Erreur"};
+
+/*Ici on entre les valeurs RGB pour calibrer le capteur de couleur, les positions sont celle de char* color[]*/
+int learned_colors[3][9] = {{28,32,31,32,29,25,25,27,31},  //R  
+                            {33,32,35,29,36,33,31,30,34},  //G
+                            {40,36,34,39,37,44,42,41,37}}; //G
+
 int PercentageRed = 0, PercentageGreen = 0, PercentageBlue = 0;
 float OutOfRange;
 
@@ -69,7 +72,7 @@ void NoFilter() {
 }
 
 /**
- * @brief Fonction qui sélectionne le filtre rouge
+ * @brief Fonction qui sélectionne le filtre rouge pour la mesure du rouge
  * 
  */
 void RedFilter() {
@@ -81,7 +84,7 @@ void RedFilter() {
 }
 
 /**
- * @brief Fonction qui sélectionne le filtre vert
+ * @brief Fonction qui sélectionne le filtre vert pour la mesure du vert
  * 
  */
 void GreenFilter() {
@@ -93,7 +96,7 @@ void GreenFilter() {
 }
 
 /**
- * @brief Fonction qui sélectionne le filtre bleu
+ * @brief Fonction qui sélectionne le filtre bleu pour la mesure du bleu
  * 
  */
 void BlueFilter() {
@@ -104,9 +107,11 @@ void BlueFilter() {
 
 }
 
+
 /**
  * @brief Fontion qui récupère la couleur courante
  * 
+ * @param echantillions 
  * @return Color 
  */
 Color getColor(byte echantillions) {
@@ -143,7 +148,7 @@ Color getColor(byte echantillions) {
   PercentageGreen = PercentageGreen / echantillions;
   PercentageBlue = PercentageBlue / echantillions;
 
-
+  /*Affichage sur le port série des valeurs RGB*/
   Serial.print("Rouge : ");
   Serial.print(PercentageRed);
   Serial.print(" Vert : ");
@@ -151,8 +156,10 @@ Color getColor(byte echantillions) {
   Serial.print(" Bleu : ");
   Serial.println(PercentageBlue);
 
+  /*On associe une couleur aux valeurs*/
   colorget = classify();
 
+  /*On return la couleur*/
   if (colorget == 0){
     color = BLANC;
     Serial.println("Detecter BLANC");

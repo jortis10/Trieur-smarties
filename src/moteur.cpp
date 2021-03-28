@@ -3,9 +3,9 @@
 /**
  * @brief Moteur
  * 
- * @param dirPin 
- * @param stepPin 
- * @param stepsPerRevolution 
+ * @param dirPin Pin de direction
+ * @param stepPin Pin de pas
+ * @param stepsPerRevolution Nombre de pas pour une révolution du moteur (Dépend du borchage)
  */
 Moteur::Moteur(int dirPin, int stepPin, int stepsPerRevolution){
 
@@ -21,9 +21,9 @@ Moteur::Moteur(int dirPin, int stepPin, int stepsPerRevolution){
 /**
  * @brief Met en rotation le moteur avec phase acceleration / déccélération
  * 
- * @param direction 
- * @param steps 
- * @param delay 
+ * @param direction Direction du moteur CCW (Counter Clock Wise) Ou CW (Clock wise)
+ * @param steps Nombre de pas a effectuer
+ * @param delay Delay (ajuste la vitesse de rotation) , faire attention lors de la modification
  */
 void Moteur::setRotation(Moteur::Dir direction, int steps, int delay){
 
@@ -31,7 +31,7 @@ void Moteur::setRotation(Moteur::Dir direction, int steps, int delay){
 
     int j = delay*3;
 
-    /*Acceleration*/
+    /*Phase d'accélération 1/8 de la rotation*/
     for (int i = 0; i < steps/8; i++) { 
       
       digitalWrite(m_stepPin, HIGH);
@@ -42,7 +42,7 @@ void Moteur::setRotation(Moteur::Dir direction, int steps, int delay){
       j -= (delay*2)/(steps/8);
     }
 
-    /*Vitesse constante*/
+    /*Vitesse constante 6/8 de la rotation*/
     for (int i = 0; i <= (3*steps)/4; i++) {
       
       digitalWrite(m_stepPin, HIGH);
@@ -53,7 +53,7 @@ void Moteur::setRotation(Moteur::Dir direction, int steps, int delay){
 
     j = delay;
     
-    /*Desceleration*/
+    /*Phase de déscéleration 1/8 de la rotation*/
     for (int i = 0; i < steps/8; i++) {
       
       digitalWrite(m_stepPin, HIGH);

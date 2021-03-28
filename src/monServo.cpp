@@ -1,9 +1,9 @@
 #include "monServo.hpp"
 
 /**
- * @brief Construct a new Mon Servo:: Mon Servo object
+ * @brief Servo moteur
  * 
- * @param servoPin 
+ * @param servoPin pin du servomoteur
  */
 MonServo::MonServo(int servoPin) : Servo()
 {
