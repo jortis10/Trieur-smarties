@@ -41,14 +41,13 @@ enum Color{
 Color getColor(byte echantillions);
 
 void colorSetup();
-void TCS3200_On();
-void TCS3200_Off();
+void capteurOn();
+void capteurOff();
 void NoFilter();
 void RedFilter();
 void GreenFilter();
 void BlueFilter();
-void getColorTest();
-int classify();
+int distance();
 
 
 

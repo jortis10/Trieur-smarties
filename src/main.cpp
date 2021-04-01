@@ -9,14 +9,16 @@
  * 
  */
 
-#include "mycolor.hpp"
-#include "monServo.hpp"
+#include "couleur.hpp"
+#include "servomoteur.hpp"
 #include "moteur.hpp"
 
 Color currentColor = BLANC;
 
-Moteur moteur(2,3,400);
-MonServo servo(9);
+
+/*Initialisation des actionneurs*/
+Moteur moteur(PIN_DIR,PIN_STEP,STEPSPERREVOLUTION);
+Servomoteur servo(PIN_SERVO);
 
 /*Initialisation des composants*/
 void setup() {
@@ -28,9 +30,9 @@ void setup() {
 
 /*Routine*/
 void loop() {
-
+    
     /*On lit la couleur courante avec une moyenne de 20 échantillions pour la précision*/
-    currentColor = getColor(20);
+    currentColor = getColor(30);
     /*On positionne l'évacuation*/
     servo.setEvacuation(currentColor);
     /*On effectue la rotation d'un quart de tour*/

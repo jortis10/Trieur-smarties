@@ -1,11 +1,11 @@
-#include "monServo.hpp"
+#include "servomoteur.hpp"
 
 /**
  * @brief Servo moteur
  * 
  * @param servoPin pin du servomoteur
  */
-MonServo::MonServo(int servoPin) : Servo()
+Servomoteur::Servomoteur(int servoPin) : Servo()
 {
 
     m_servoPin = servoPin;
@@ -17,10 +17,10 @@ MonServo::MonServo(int servoPin) : Servo()
  * 
  * @param color 
  */
-void MonServo::setEvacuation(Color color){
+void Servomoteur::setEvacuation(Color color){
 
+    /*On associe une position du servo pour chaque couleurs*/
     int servoPos = map((int)color,0,8,30,150);
-    Serial.println(servoPos);
     
     this->write(servoPos);
      

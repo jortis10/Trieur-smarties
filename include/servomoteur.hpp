@@ -9,24 +9,24 @@
  * 
  */
 
-#ifndef HEADER_MONSERVO_HPP
-#define HEADER_MONSERVO_HPP
+#ifndef HEADER_SERVOMOTEUR_HPP
+#define HEADER_SERVOMOTEUR_HPP
 
-#include <arduino.h>
 #include <Servo.h>
+#include "couleur.hpp"
 
-#include "mycolor.hpp"
+#define PIN_SERVO 9
 
-class MonServo : public Servo
+class Servomoteur : public Servo
 {
 
 private:
 
-    int m_servoPin = 2;
+    int m_servoPin = PIN_SERVO;
 
 public:
 
-    MonServo(int servoPin);
+    Servomoteur(int servoPin);
     void setEvacuation(Color color);
 
 };

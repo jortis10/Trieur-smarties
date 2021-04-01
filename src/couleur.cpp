@@ -9,14 +9,15 @@
  * 
  */
 
-#include "mycolor.hpp"
+#include "couleur.hpp"
 
+/*Nos couleur possible de Smarties*/
 char* color[] = {"Blanc", "Orange", "Jaune", "Rouge", "Vert", "bleu","violet","rose","marron", "Erreur"};
 
 /*Ici on entre les valeurs RGB pour calibrer le capteur de couleur, les positions sont celle de char* color[]*/
-int learned_colors[3][9] = {{28,32,31,32,29,25,25,27,31},  //R  
-                            {33,32,35,29,36,33,31,30,34},  //G
-                            {40,36,34,39,37,44,42,41,37}}; //G
+int learned_colors[3][9] = {{30,33,32,34,30,27,27,29,31},  //R  
+                            {30,30,33,28,33,31,30,29,31},  //G
+                            {35,33,31,36,34,39,40,38,34}}; //B
 
 int PercentageRed = 0, PercentageGreen = 0, PercentageBlue = 0;
 float OutOfRange;
@@ -38,7 +39,7 @@ void colorSetup(){
  * @brief Fonction qui initialise le capteur de couleur
  * 
  */
-void TCS3200_On() {
+void capteurOn() {
 
   digitalWrite(LED,HIGH); 
   digitalWrite(PIN_S0,HIGH);
@@ -51,7 +52,7 @@ void TCS3200_On() {
  * @brief Fonction qui reinitialise le capteur de couleur
  * 
  */
-void TCS3200_Off() {
+void capteurOff() {
 
   digitalWrite(LED,LOW);
   digitalWrite(PIN_S0,LOW);
@@ -121,7 +122,7 @@ Color getColor(byte echantillions) {
   Color color = BLANC;
 
   for (int i = 0 ; i < echantillions ; i++){
-    TCS3200_On();
+    capteurOn();
     NoFilter();
 
     FrequencyClear = float(pulseIn(PIN_OUT,LOW,10000));
@@ -135,7 +136,7 @@ Color getColor(byte echantillions) {
     BlueFilter();
     FrequencyBlue = float(pulseIn(PIN_OUT,LOW,10000));
 
-    TCS3200_Off();
+    capteurOff();
 
     PercentageRed += int((FrequencyClear / FrequencyRed) * 100.0);
     PercentageGreen += int((FrequencyClear / FrequencyGreen) * 100.0);
@@ -156,8 +157,8 @@ Color getColor(byte echantillions) {
   Serial.print(" Bleu : ");
   Serial.println(PercentageBlue);
 
-  /*On associe une couleur aux valeurs*/
-  colorget = classify();
+  /*On associe une couleur aux valeurs RGB*/
+  colorget = distance();
 
   /*On return la couleur*/
   if (colorget == 0){
@@ -206,10 +207,13 @@ Color getColor(byte echantillions) {
 
 /**
  * @brief Fonction qui associe la couleur la plus "proche" à la couleur en lecture
+ *        On ce place dans un espace en 3 dimensions , un axe Rouge, un axe Vert, un axe Bleu
+ *        On mesure la distance euclidienne entre les point RVB mesuré et les point RVB déja connu
+ *        La couleur la plus proche sera la couleur retournée      
  * 
  * @return int 
  */
-int classify() {
+int distance() {
 
   int i_color;
   int ClosestColor;

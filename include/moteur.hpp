@@ -14,13 +14,17 @@
 
 #include <arduino.h>
 
+#define STEPSPERREVOLUTION 400
+#define PIN_STEP 3
+#define PIN_DIR 2
+
 class Moteur{
 
 private:
 
-    int m_dirPin = 2;
-    int m_stepPin = 3;
-    int m_stepsPerRevolution = 400;
+    int m_dirPin = PIN_DIR;
+    int m_stepPin = PIN_STEP;
+    int m_stepsPerRevolution = STEPSPERREVOLUTION;
 
 public:
 
